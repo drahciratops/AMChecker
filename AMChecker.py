@@ -34,15 +34,14 @@ def main():
       if isInBlacklist(email):
         continue
 
-      print 'Checking ' + email
       result = requests.post('https://ashley.cynic.al/check', data={'email':email})
       if result.status_code is 200:
         rawJson = result.text
         response = json.loads(rawJson)
         if response.has_key('found'):
-          print response['found']
+          print email + " - " + response['found']
       else:
-        print 'server error: ' + str(result.status_code)
+        print email + ' - server error: ' + str(result.status_code)
 
 if __name__ == '__main__':
     main()
