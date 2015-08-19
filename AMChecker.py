@@ -10,11 +10,14 @@ import json
 
 def main():
 
-    blacklist = [
+    ExclusionList = [
       "craigslist"
     ]
 
-    def isInBlacklist(email):
+    def isExcluded(email):
+      if email == '':
+        return True
+        
       for keyword in blacklist:
         if keyword in email:
           return True
@@ -31,7 +34,7 @@ def main():
       name = row[header.index('Name')]
       email = row[header.index('E-mail 1 - Value')]
 
-      if isInBlacklist(email):
+      if isExcluded(email):
         continue
 
       result = requests.post('https://ashley.cynic.al/check', data={'email':email})
